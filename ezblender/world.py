@@ -1,12 +1,21 @@
 import bpy
 
 class World:
+	def __createobject__(self,name,objtype):
+		# TODO: Does not remove mesh/armature children properly
+		self.remove(name)
+		obj = bpy.data.objects.new(name,objtype)
+		scene = bpy.context.scene
+		scene.objects.link(obj)
+		obj.name = name
+		return obj
+
 	"""
 	Represents global access to the EZBlender system
 	"""
 	def remove(self,name):
 		"""Removes a single object from the Blender scene.
-		
+
 		Args:
 			name (string): Name of the object to be removed
 		"""
@@ -22,14 +31,26 @@ class World:
 		bpy.ops.object.select_all(action='SELECT')
 		bpy.ops.object.delete()
 
+
+
+	def create_armature(self,name):
+		"""Creates a new Armature in the Blender scene.
+
+		Warning:
+			Removes any previous object of this name
+
+		Args:
+			name (string): Name of the new object	
+		"""
+		return self.__createobject__(name,bpy.data.armatures.new('Armature'))
+
 	def create_mesh(self,name):
 		"""Creates a new mesh in the Blender scene.
 
 		Warning: 
-			Removes any oprevious object of this name	
+			Removes any previous object of this name	
 
 		Args:
 			name (string): Name of the new object
 		"""
-		self.remove(name)
-		bpy.data.meshes.new("mesh")
+		return self.__createobject__(name,bpy.data.meshes.new('mesh'))
