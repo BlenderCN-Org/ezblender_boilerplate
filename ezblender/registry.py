@@ -1,14 +1,26 @@
 import bpy
 import importlib
 from . import world
-importlib.reload(world)
-
+try: importlib.reload(world) 
+except: pass # Try/catch to work with Sphinx documentation
 
 class Registry:
+	"""
+	Object used to register operators to the Blender addon
+	"""
 	registered_operators = []
 	reg_world = world.World()
 
 	def register_operator(self,id,label,operator):
+		"""Registers a new operator to blender
+
+		Args:
+			id (int): Id of the new thing
+			label: Label lol
+			operator: Function
+		Returns:
+			ezblender.registry.World: Newly created world
+		"""
 		rworld = self.reg_world
 		class OperatorClass(bpy.types.Operator):
 			bl_idname = id
