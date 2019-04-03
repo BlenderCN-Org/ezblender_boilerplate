@@ -13,9 +13,17 @@ import importlib
 from . import addon
 importlib.reload(addon)
 
+from .ezblender import registry
+importlib.reload(registry)
+
+cur_registry = registry.Registry()
+
 def register():
-	addon.init()
-	pass
+	addon.init(cur_registry)
+	for operator in cur_registry.registered_operators:
+		bpy.utils.register_class(operator)
 
 def unregister():
-	pass
+	for operator in cur_registry.registered_operators:
+		bpy.utils.unregister_class(cls)
+	cur_registry.registered_classes.clear()
