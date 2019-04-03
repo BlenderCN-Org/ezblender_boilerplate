@@ -15,11 +15,9 @@ class Registry:
 		"""Registers a new operator to blender
 
 		Args:
-			id (int): Id of the new thing
-			label: Label lol
-			operator: Function
-		Returns:
-			ezblender.registry.World: Newly created world
+			id (int): 
+			label: 
+			operator: 
 		"""
 		rworld = self.reg_world
 		class OperatorClass(bpy.types.Operator):
