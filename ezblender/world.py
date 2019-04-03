@@ -1,6 +1,11 @@
 import bpy
+import time
 
 class World:
+	"""
+	Represents global access to the EZBlender system
+	"""
+
 	def __createobject__(self,name,objtype):
 		# TODO: Does not remove mesh/armature children properly
 		self.remove(name)
@@ -10,9 +15,6 @@ class World:
 		obj.name = name
 		return obj
 
-	"""
-	Represents global access to the EZBlender system
-	"""
 	def remove(self,name):
 		"""Removes a single object from the Blender scene.
 
@@ -28,9 +30,20 @@ class World:
 	def remove_everything(self):
 		"""Removes all objects from the Blender scene.
 		"""
-		bpy.ops.object.select_all(action='SELECT')
-		bpy.ops.object.delete()
+		# TODO: Does not remove animation data
+		for scene in bpy.data.scenes:
+			for obj in scene.objects:
+			scene.objects.unlink(obj)
 
+		# only worry about data in the startup scene
+		for bpy_data_iter in (
+			bpy.data.objects,
+			bpy.data.meshes,
+			bpy.data.lamps,
+			bpy.data.cameras,
+			):
+			for id_data in bpy_data_iter:
+				bpy_data_iter.remove(id_data)
 
 
 	def create_armature(self,name):
