@@ -33,7 +33,7 @@ class World:
 		# TODO: Does not remove animation data
 		for scene in bpy.data.scenes:
 			for obj in scene.objects:
-			scene.objects.unlink(obj)
+				scene.objects.unlink(obj)
 
 		# only worry about data in the startup scene
 		for bpy_data_iter in (

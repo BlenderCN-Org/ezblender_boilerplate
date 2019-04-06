@@ -177,9 +177,4 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
-class il:
-    def reload(x):
-        pass
-
-importlib = il() 
 autodoc_mock_imports = ['bpy','importlib']
