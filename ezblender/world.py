@@ -57,6 +57,17 @@ class World:
 		"""
 		return bpy.data.objects[name]
 
+	def has_object(self,name):
+		"""Check if an object exists in the Blender scene.
+
+		Args:
+			name (string): Name of the object
+		
+		Returns:
+			boolean: True when object with name exists
+		"""
+		return name in bpy.data.objects
+
 	def create_armature(self,name):
 		"""Creates a new Armature in the Blender scene.
 
