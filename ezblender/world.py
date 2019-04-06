@@ -2,9 +2,14 @@ import bpy
 import time
 import importlib
 from . import mesh
+from . import armature
 
 try: importlib.reload(mesh) 
 except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
+
+try: importlib.reload(armature)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
+
 
 class World:
 	"""
@@ -113,7 +118,7 @@ class World:
 		Args:
 			name (string): Name of the new object	
 		"""
-		obj = self.__createobject__(name,bpy.data.armatures.new('Armature'))
+		obj = armature.Armature(self,self.__createobject__(name,bpy.data.armatures.new('Armature')))
 		self.kept_objects[name] = obj
 		return obj
 

@@ -83,5 +83,14 @@ def runtests(world_in):
 			world_in.remove_everything()
 			getattr(mesh,fun)(world_in,tester)
 
+	from .tests import armature
+	importlib.reload(armature)
+
+	for fun in dir(armature):
+		if fun.startswith('test_'):
+			tester.set_test('armature',fun)
+			world_in.remove_everything()
+			getattr(armature,fun)(world_in,tester)
+
 	world_in.remove_everything()
 	tester.print_results()
