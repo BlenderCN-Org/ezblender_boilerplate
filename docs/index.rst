@@ -12,6 +12,9 @@ Welcome to ezblender's documentation!
 .. automodule:: ezblender.world
 	:members:
 
+.. automodule:: ezblender.mesh
+	:members:
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

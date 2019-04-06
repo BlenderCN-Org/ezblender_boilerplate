@@ -63,15 +63,25 @@ class Tester:
 def runtests(world_in):
 	tester = Tester()
 
+	# TODO: Removed test functions aren't unloaded by importlib.reload
+
 	from .tests import world
 	importlib.reload(world)
 
-	# TODO: Removed test functions aren't unloaded by importlib.reload
 	for fun in dir(world):
 		if fun.startswith('test_'):
-			tester.set_test("world",fun)
+			tester.set_test('world',fun)
 			world_in.remove_everything()
 			getattr(world,fun)(world_in,tester)
+
+	from .tests import mesh
+	importlib.reload(mesh)
+
+	for fun in dir(mesh):
+		if fun.startswith('test_'):
+			tester.set_test('mesh',fun)
+			world_in.remove_everything()
+			getattr(mesh,fun)(world_in,tester)
 
 	world_in.remove_everything()
 	tester.print_results()

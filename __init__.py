@@ -31,5 +31,5 @@ def register():
 
 def unregister():
 	for operator in cur_registry.registered_operators:
-		bpy.utils.unregister_class(cls)
-	cur_registry.registered_classes.clear()
+		bpy.utils.unregister_class(operator)
+	cur_registry.registered_operators.clear()
