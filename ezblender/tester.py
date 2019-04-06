@@ -10,6 +10,12 @@ class Tester:
 		lineno = str(getframeinfo(stack()[2][0]).lineno)
 		self.cur_test.append((success,message,lineno))
 
+	def true(self,val,message=""):
+		self.__add_result(a==True,message)
+
+	def false(self,val,message=""):
+		self.__add_result(a==False,message)
+
 	def equal(self,a,b,message=""):
 		self.__add_result(a==b,message)
 
