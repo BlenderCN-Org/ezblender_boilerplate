@@ -23,7 +23,7 @@ class Tester:
 		except:
 			self.__add_result(True,message)
 
-	def doesNotThrow(self,fun,message=""):
+	def does_not_throw(self,fun,message=""):
 		try:
 			fun()
 			self.__add_result(True,message)
