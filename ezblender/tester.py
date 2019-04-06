@@ -1,9 +1,6 @@
 import importlib
 from inspect import getframeinfo, stack
 
-SUCCESS = 'O'
-FAIL = 'X'
-
 class Tester:
 	def __init__(self):
 		self.modules = {}
@@ -63,9 +60,11 @@ def runtests(world_in):
 	from .tests import world
 	importlib.reload(world)
 
+	# TODO: Removed test functions aren't unloaded by importlib.reload
 	for fun in dir(world):
 		if fun.startswith('test_'):
 			tester.set_test("world",fun)
+			world_in.remove_everything()
 			getattr(world,fun)(world_in,tester)
 
 	tester.print_results()

@@ -45,6 +45,17 @@ class World:
 			for id_data in bpy_data_iter:
 				bpy_data_iter.remove(id_data)
 
+	def get_object(self,name):
+		"""Returns an existing Object in the Blender scene.
+
+		Args:
+			name (string): Name of the existing object
+
+		Returns:
+			TODO: Blender object(?)
+		
+		"""
+		return bpy.data.objects[name]
 
 	def create_armature(self,name):
 		"""Creates a new Armature in the Blender scene.
