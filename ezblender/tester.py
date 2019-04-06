@@ -67,4 +67,5 @@ def runtests(world_in):
 			world_in.remove_everything()
 			getattr(world,fun)(world_in,tester)
 
+	world_in.remove_everything()
 	tester.print_results()
