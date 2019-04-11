@@ -71,7 +71,8 @@ class Tester:
 def runtests(world_in):
 	tester = Tester()
 
-	# TODO: Removed test functions aren't unloaded by importlib.reload
+	# TODO Removed test functions aren't unloaded by importlib.reload
+	# TODO Remove code duplication, modules can be treated like variables somehow
 
 	from .tests import world
 	importlib.reload(world)
@@ -99,6 +100,15 @@ def runtests(world_in):
 			tester.set_test('armature',fun)
 			world_in.remove_everything()
 			getattr(armature,fun)(world_in,tester)
+
+	from .tests import transformable
+	importlib.reload(transformable)
+
+	for fun in dir(transformable):
+		if fun.startswith('test_'):
+			tester.set_test('transformable',fun)
+			world_in.remove_everything()
+			getattr(transformable,fun)(world_in,tester)
 
 	world_in.remove_everything()
 	tester.print_results()
