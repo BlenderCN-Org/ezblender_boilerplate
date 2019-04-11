@@ -1,3 +1,4 @@
+import mathutils
 
 class Transformable:
     """
@@ -32,6 +33,11 @@ class Transformable:
         raise Exception("__set_global_scale__ not implemented!")
     def __set_local_rotation__(self,scale):
         raise Exception("__set_local_scale__ not implemented!")
+
+    def __make_vector__(self,vec):
+        if(type(vec)==tuple):
+            return mathutils.Vector([vec[0],vec[1],vec[2]])
+        return vec
 
     # Default implementations 
 
