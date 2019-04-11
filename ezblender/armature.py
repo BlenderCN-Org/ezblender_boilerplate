@@ -1,6 +1,10 @@
 import bpy
+import importlib
 
-class Armature:
+from . import scene_object
+importlib.reload(scene_object)
+
+class Armature(scene_object.SceneObject):
     """
     Represents a single armature object in the Blender Scene
     """

@@ -3,7 +3,8 @@ thismod = sys.modules[__name__]
 
 def test_run(world_in,tester):
     objs = [
-        ("mesh",lambda:world_in.create_mesh("mesh"))
+        ("mesh",lambda:world_in.create_mesh("mesh")),
+        ("armature",lambda:world_in.create_armature("armature"))
     ]
 
     for (name,generator) in objs:
