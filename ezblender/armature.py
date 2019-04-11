@@ -1,6 +1,9 @@
 import bpy
 
 class Armature:
+    """
+    Represents a single armature object in the Blender Scene
+    """
     def __init__(self,world,blender_object):
         self.world = world
         self.blender_object = blender_object
