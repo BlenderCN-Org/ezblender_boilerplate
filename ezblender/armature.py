@@ -4,6 +4,13 @@ import importlib
 from . import scene_object
 importlib.reload(scene_object)
 
+from . import vector
+importlib.reload(vector)
+Vector = vector.Vector
+
+from . import bone
+importlib.reload(bone)
+
 class Armature(scene_object.SceneObject):
     """
     Represents a single armature object in the Blender Scene
@@ -31,6 +38,7 @@ class Armature(scene_object.SceneObject):
             tail ((float,float,float)) : Location of the "tail" of the bone
         """
         self.__begin_edit_mode__()
-        bone = self.blender_object.data.edit_bones.new(name)
-        bone.head = head
-        bone.tail = tail
+        a_bone = self.blender_object.data.edit_bones.new(name)
+        a_bone.head = Vector(head).values
+        a_bone.tail = Vector(tail).values
+        return bone.Bone(self,a_bone)
