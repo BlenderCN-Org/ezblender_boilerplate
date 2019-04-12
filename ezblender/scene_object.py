@@ -52,3 +52,9 @@ class SceneObject(transformable.Transformable):
             self.blender_object.rotation_quaternion = Vector(rotation).values
         elif mode == "AXIS_ANGLE":
             self.blender_object.rotation_axis_angle = Vector(rotation).values
+
+    def __set_parent__(self,parent):
+        self.blender_object.parent = parent.blender_object
+
+    def __get_parent__(self):
+        return self.world.get_object(self.blender_object.parent.name)

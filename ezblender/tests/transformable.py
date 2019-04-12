@@ -12,9 +12,9 @@ def test_run(world_in,tester):
             if fun.startswith('transtest_'):
                 tester.set_test(name,fun)
                 world_in.remove_everything()                
-                getattr(thismod,fun)(generator(),tester)
+                getattr(thismod,fun)(generator(),world_in,tester)
 
-def transtest_set_local_location(obj,tester):
+def transtest_set_local_location(obj,world,tester):
     tester.equal(obj.get_local_location(),(0,0,0),"Initializes to 0,0,0")
 
     obj.set_local_location((5,5,5))
@@ -25,14 +25,14 @@ def transtest_set_local_location(obj,tester):
     tester.equal(obj.get_local_location(),(10,10,5),"Updates local after multiple calls")
     tester.equal(obj.get_global_location(),(10,10,5),"Updates local after multiple calls")
 
-def transtest_set_global_location(obj,tester):
+def transtest_set_global_location(obj,world,tester):
     tester.equal(obj.get_global_location(),(0,0,0),"Initializes to 0,0,0")
 
     obj.set_global_location((3,3,3))
     tester.equal(obj.get_local_location(),(3,3,3),"Updates local after single call")
     tester.equal(obj.get_global_location(),(3,3,3),"Updates global after single call")
 
-def transtest_set_local_rotation(obj,tester):
+def transtest_set_local_rotation(obj,world,tester):
     EULER = (10,3,4)
     QUAT = (-0.878113329410553, -0.22905924916267395, -0.17942853271961212, -0.3798081874847412)
     AXIS = (1,2,3,4)
@@ -50,3 +50,8 @@ def transtest_set_local_rotation(obj,tester):
 
     obj.set_local_rotation(AXIS,'AXIS_ANGLE')
     tester.equal(obj.get_local_rotation("AXIS_ANGLE"),AXIS)
+
+def transtest_set_parent(obj,world,tester):
+    cube = world.create_mesh("cube")
+    obj.set_parent(cube)
+    tester.equal(cube,obj.get_parent(),"Updates parent after single call")
