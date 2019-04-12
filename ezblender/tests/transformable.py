@@ -55,3 +55,8 @@ def transtest_set_parent(obj,world,tester):
     cube = world.create_mesh("cube")
     obj.set_parent(cube)
     tester.equal(cube,obj.get_parent(),"Updates parent after single call")
+
+    cube1 = world.create_mesh("cube1")
+    obj.set_parent(cube1)
+    tester.not_equal(cube,obj.get_parent(),"Does not keep old parent after another call")
+    tester.equal(cube1,obj.get_parent(),"Updates parent after multiple calls")
