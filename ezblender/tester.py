@@ -19,13 +19,6 @@ class Tester:
 
 	def equal(self,a,b,message=""):
 		self.__add_result(a==b,message)
-	
-	def equal_vec(self,a,b,message=""):
-		if(type(a)==tuple):
-			a = mathutils.Vector(a)
-		if(type(b)==tuple):
-			b = mathutils.Vector(b)
-		self.__add_result(a==b,message)
 
 	def not_equal(self,a,b,message=""):
 		self.__add_result(a!=b,message)

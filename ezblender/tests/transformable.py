@@ -15,22 +15,22 @@ def test_run(world_in,tester):
                 getattr(thismod,fun)(generator(),tester)
 
 def transtest_set_local_location(obj,tester):
-    tester.equal_vec(obj.get_local_location(),(0,0,0),"Initializes to 0,0,0")
+    tester.equal(obj.get_local_location(),(0,0,0),"Initializes to 0,0,0")
 
     obj.set_local_location((5,5,5))
-    tester.equal_vec(obj.get_local_location(),(5,5,5),"Updates local after single call")
-    tester.equal_vec(obj.get_global_location(),(5,5,5),"Updates global after single call")
+    tester.equal(obj.get_local_location(),(5,5,5),"Updates local after single call")
+    tester.equal(obj.get_global_location(),(5,5,5),"Updates global after single call")
 
     obj.set_local_location((10,10,5))
-    tester.equal_vec(obj.get_local_location(),(10,10,5),"Updates local after multiple calls")
-    tester.equal_vec(obj.get_global_location(),(10,10,5),"Updates local after multiple calls")
+    tester.equal(obj.get_local_location(),(10,10,5),"Updates local after multiple calls")
+    tester.equal(obj.get_global_location(),(10,10,5),"Updates local after multiple calls")
 
 def transtest_set_global_location(obj,tester):
-    tester.equal_vec(obj.get_global_location(),(0,0,0),"Initializes to 0,0,0")
+    tester.equal(obj.get_global_location(),(0,0,0),"Initializes to 0,0,0")
 
     obj.set_global_location((3,3,3))
-    tester.equal_vec(obj.get_local_location(),(3,3,3),"Updates local after single call")
-    tester.equal_vec(obj.get_global_location(),(3,3,3),"Updates global after single call")
+    tester.equal(obj.get_local_location(),(3,3,3),"Updates local after single call")
+    tester.equal(obj.get_global_location(),(3,3,3),"Updates global after single call")
 
 def transtest_set_local_rotation(obj,tester):
-    tester.equal_vec(obj.get_local_rotation("XYZ"),(0,0,0),"Initializes to 0,0,0 euler")
+    tester.equal(obj.get_local_rotation("XYZ"),(0,0,0),"Initializes to 0,0,0 euler")
