@@ -18,7 +18,7 @@ class Tester:
 		self.__add_result(val==False,message)
 
 	def equal(self,a,b,message=""):
-		self.__add_result(a==b,message)
+		self.__add_result(a==b,message+"("+str(a)+"!="+str(b)+")")
 
 	def not_equal(self,a,b,message=""):
 		self.__add_result(a!=b,message)
