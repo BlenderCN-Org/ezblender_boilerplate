@@ -1,6 +1,7 @@
 import importlib
 import mathutils
 from inspect import getframeinfo, stack
+import sys
 
 class Tester:
 	def __init__(self):
@@ -68,47 +69,27 @@ class Tester:
 					if not success:
 						print('      ERROR: '+message+' (line '+lineno+')')
 
+def _get_test_module():
+	return __name__.replace('tester','')+'tests.'
+
+def _single_test(world_in,tester,testname):
+	mod = importlib.import_module(_get_test_module()+testname)
+	importlib.reload(mod)
+	for fun in dir(mod):
+		if fun.startswith('test_'):
+			tester.set_test(testname,fun)
+			world_in.remove_everything()
+			getattr(mod,fun)(world_in,tester)
+
 def runtests(world_in):
 	tester = Tester()
 
 	# TODO Removed test functions aren't unloaded by importlib.reload
-	# TODO Remove code duplication, modules can be treated like variables somehow
+	_single_test(world_in,tester,'world')
+	_single_test(world_in,tester,'mesh')
+	_single_test(world_in,tester,'armature')
+	_single_test(world_in,tester,'transformable')
 
-	from .tests import world
-	importlib.reload(world)
-
-	for fun in dir(world):
-		if fun.startswith('test_'):
-			tester.set_test('world',fun)
-			world_in.remove_everything()
-			getattr(world,fun)(world_in,tester)
-
-	from .tests import mesh
-	importlib.reload(mesh)
-
-	for fun in dir(mesh):
-		if fun.startswith('test_'):
-			tester.set_test('mesh',fun)
-			world_in.remove_everything()
-			getattr(mesh,fun)(world_in,tester)
-
-	from .tests import armature
-	importlib.reload(armature)
-
-	for fun in dir(armature):
-		if fun.startswith('test_'):
-			tester.set_test('armature',fun)
-			world_in.remove_everything()
-			getattr(armature,fun)(world_in,tester)
-
-	from .tests import transformable
-	importlib.reload(transformable)
-
-	for fun in dir(transformable):
-		if fun.startswith('test_'):
-			tester.set_test('transformable',fun)
-			world_in.remove_everything()
-			getattr(transformable,fun)(world_in,tester)
-
+	# Clean up
 	world_in.remove_everything()
 	tester.print_results()
