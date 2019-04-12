@@ -1,7 +1,6 @@
 import importlib
 import mathutils
 from inspect import getframeinfo, stack
-import sys
 
 class Tester:
 	def __init__(self):
