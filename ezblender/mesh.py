@@ -2,7 +2,9 @@ import bmesh
 import bpy
 import importlib
 from . import scene_object
+from . import vector
 importlib.reload(scene_object)
+Vector = vector.Vector
 
 class Mesh(scene_object.SceneObject):
 
@@ -36,7 +38,7 @@ class Mesh(scene_object.SceneObject):
         """
         self.__begin_edit_mode__()
         self.__dirty_verts = True
-        return self.bmesh.verts.new(vertex)
+        return self.bmesh.verts.new(Vector(vertex).values)
 
     def add_face(self,vertices):
         """Adds a new face to this mesh
@@ -86,3 +88,4 @@ class Mesh(scene_object.SceneObject):
         self.__begin_edit_mode__()
         if(self.__dirty_faces):
             self.bmes.faces.ensure_lookup_table()
+        # TODO Why is this method not even finished?

@@ -16,13 +16,13 @@ class Transformable:
     def __set_local_location__(self,location):
         raise Exception("__set_local_location__ not implemented!")
 
-    def __get_local_rotation__(self):
+    def __get_local_rotation__(self,mode="XYZ"):
         raise Exception("__get_local_rotation__ not implemented!") 
-    def __get_global_rotation__(self):
+    def __get_global_rotation__(self,mode="XYZ"):
         raise Exception("__get_global_rotation__ not implemented!")
-    def __set_global_rotation__(self,rotation):
+    def __set_global_rotation__(self,rotation,mode="XYZ"):
         raise Exception("__set_global_rotation__ not implemented!")
-    def __set_local_rotation__(self,rotation):
+    def __set_local_rotation__(self,rotation,mode="XYZ"):
         raise Exception("__set_local_rotation__ not implemented!")
 
     def __get_local_scale__(self):
@@ -34,11 +34,6 @@ class Transformable:
     def __set_local_rotation__(self,scale):
         raise Exception("__set_local_scale__ not implemented!")
 
-    def __make_vector__(self,vec):
-        if(type(vec)==tuple):
-            return mathutils.Vector([vec[0],vec[1],vec[2]])
-        return vec
-
     # Default implementations 
 
     def get_local_location(self):
@@ -49,3 +44,5 @@ class Transformable:
         self.__set_local_location__(location)
     def set_global_location(self,location):
         self.__set_global_location__(location)
+    def get_local_rotation(self,mode="XYZ"):
+        return self.__get_local_rotation__(mode)

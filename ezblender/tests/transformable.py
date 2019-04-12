@@ -31,3 +31,6 @@ def transtest_set_global_location(obj,tester):
     obj.set_global_location((3,3,3))
     tester.equal_vec(obj.get_local_location(),(3,3,3),"Updates local after single call")
     tester.equal_vec(obj.get_global_location(),(3,3,3),"Updates global after single call")
+
+def transtest_set_local_rotation(obj,tester):
+    tester.equal_vec(obj.get_local_rotation("XYZ"),(0,0,0),"Initializes to 0,0,0 euler")
