@@ -31,7 +31,7 @@ class SceneObject(transformable.Transformable):
     def __set_rotation_mode__(self,mode):
         self.blender_object.rotation_mode = mode
 
-    def __get_local_rotation__(self,rotation,mode="XYZ"):
+    def __get_local_rotation__(self,mode="XYZ"):
         self.__set_rotation_mode__(mode)
         # TODO add other xyz permutations
         if mode == "XYZ":
@@ -39,7 +39,7 @@ class SceneObject(transformable.Transformable):
         elif mode == "QUATERNION":
             return Vector(self.blender_object.rotation_quaternion)
         elif mode == "AXIS_ANGLE":
-            return Vector(self.blender_object.rotation_axis_angle)
+            return Vector(tuple(self.blender_object.rotation_axis_angle))
 
     def __set_local_rotation__(self,rotation,mode="XYZ"):
         self.__set_rotation_mode__(mode)

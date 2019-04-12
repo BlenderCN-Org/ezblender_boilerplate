@@ -44,5 +44,9 @@ class Transformable:
         self.__set_local_location__(location)
     def set_global_location(self,location):
         self.__set_global_location__(location)
+
+
     def get_local_rotation(self,mode="XYZ"):
         return self.__get_local_rotation__(mode)
+    def set_local_rotation(self,value,mode="XYZ"):
+        self.__set_local_rotation__(value,mode)

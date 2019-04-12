@@ -14,6 +14,8 @@ class Vector:
                 self.values = values.values
             else:
                 self.values = (values.x,values.y,values.z)
+        elif(values.__class__.__name__=='Quaternion'):
+            self.values = (values.w,values.x,values.y,values.z)
         else:
             raise Exception('Unknown vector class: '+values.__class__.__name__)
     
@@ -54,3 +56,6 @@ class Vector:
             self.__dict__['values'][0] = value
         else:
             self.__dict__[name] = value
+
+    def __repr__(self):
+        return self.values.__repr__()

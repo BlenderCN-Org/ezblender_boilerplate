@@ -33,4 +33,20 @@ def transtest_set_global_location(obj,tester):
     tester.equal(obj.get_global_location(),(3,3,3),"Updates global after single call")
 
 def transtest_set_local_rotation(obj,tester):
+    EULER = (10,3,4)
+    QUAT = (-0.878113329410553, -0.22905924916267395, -0.17942853271961212, -0.3798081874847412)
+    AXIS = (1,2,3,4)
+
     tester.equal(obj.get_local_rotation("XYZ"),(0,0,0),"Initializes to 0,0,0 euler")
+    obj.set_local_rotation(EULER)
+    tester.equal(obj.get_local_rotation("XYZ"),EULER,'Updates xyz after single xyz rotation')
+    tester.equal(obj.get_local_rotation("QUATERNION"),QUAT,'Updates quaternion after single xyz rotation')
+
+    obj.set_local_rotation((0,0,0),'XYZ')
+    tester.equal(obj.get_local_rotation("XYZ"),(0,0,0),"Reinitializes to 0,0,0 euler")
+    obj.set_local_rotation(QUAT,'QUATERNION')
+
+    tester.equal(obj.get_local_rotation("QUATERNION"),QUAT,'Updates quaternion after single quaternion rotation')
+
+    obj.set_local_rotation(AXIS,'AXIS_ANGLE')
+    tester.equal(obj.get_local_rotation("AXIS_ANGLE"),AXIS)
