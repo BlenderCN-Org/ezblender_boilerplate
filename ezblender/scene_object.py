@@ -2,10 +2,13 @@ import bpy
 import importlib
 
 from . import transformable
-importlib.reload(transformable)
+try: importlib.reload(transformable)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
 
 from . import vector
-importlib.reload(vector)
+try: importlib.reload(vector)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
+
 Vector = vector.Vector
 
 class SceneObject(transformable.Transformable):

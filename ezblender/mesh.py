@@ -3,7 +3,13 @@ import bpy
 import importlib
 from . import scene_object
 from . import vector
-importlib.reload(scene_object)
+
+try: importlib.reload(vector)
+except Exception as e: print("Exception Reloading:",e)
+
+try: importlib.reload(scene_object)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
+
 Vector = vector.Vector
 
 class Mesh(scene_object.SceneObject):

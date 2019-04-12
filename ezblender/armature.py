@@ -2,14 +2,18 @@ import bpy
 import importlib
 
 from . import scene_object
-importlib.reload(scene_object)
+try: importlib.reload(scene_object)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
 
 from . import vector
-importlib.reload(vector)
+try: importlib.reload(vector)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
+
 Vector = vector.Vector
 
 from . import bone
-importlib.reload(bone)
+try: importlib.reload(bone)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
 
 class Armature(scene_object.SceneObject):
     """
