@@ -34,6 +34,11 @@ class Transformable:
     def __set_local_rotation__(self,scale):
         raise Exception("__set_local_scale__ not implemented!")
 
+    def __set_parent__(self,parent):
+        raise Exception("__set_parent__ not implemented!")
+    def __get_parent__(self):
+        raise Exception("__get_parent__ not implemented!")
+
     # Default implementations 
 
     def get_local_location(self):
@@ -50,3 +55,8 @@ class Transformable:
         return self.__get_local_rotation__(mode)
     def set_local_rotation(self,value,mode="XYZ"):
         self.__set_local_rotation__(value,mode)
+
+    def set_parent(self,parent):
+        self.__set_parent__(parent)
+    def get_parent(self):
+        return self.__get_parent__()
