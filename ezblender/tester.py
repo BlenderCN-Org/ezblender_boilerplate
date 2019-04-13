@@ -80,8 +80,6 @@ def _single_test(world_in,tester,testname):
 			getattr(mod,fun)(world_in,tester)
 
 def runtests(world_in):
-	print("Test module is ",_get_test_module())
-
 	tester = Tester()
 
 	# TODO Removed test functions aren't unloaded by importlib.reload

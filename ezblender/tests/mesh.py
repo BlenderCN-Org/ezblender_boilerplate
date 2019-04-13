@@ -26,3 +26,10 @@ def test_add_face(world,tester):
     m0.add_vertex((20,0,0))
     tester.throws(lambda: m0.add_face([0,1,3]),"Throws on invalid indices")
     tester.does_not_throw(lambda: m0.add_face([0,1,2,]),"Does not throw on valid indices")
+
+def test_add_vertex_groups(world,tester):
+    m0 = world.create_mesh("mesh")
+    m0.add_vertex((0,0,0))
+    m0.set_vertex_groups(0,[("group1",0.5),("group2",0.25)])
+    groups = m0.get_groups_for_vertex(0)
+    tester.equal(groups,[(0,0.5),(1,0.25)],"Groups can be found per vertex")
