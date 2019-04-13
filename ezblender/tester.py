@@ -23,6 +23,12 @@ class Tester:
 	def not_equal(self,a,b,message=""):
 		self.__add_result(a!=b,message)
 
+	def none(self,val,message=""):
+		self.__add_result(val==None,message)
+	
+	def not_none(self,val,message=""):
+		self.__add_result(val!=None,message)
+
 	def throws(self,fun,message=""):
 		try:
 			fun()
@@ -74,6 +80,8 @@ def _single_test(world_in,tester,testname):
 			getattr(mod,fun)(world_in,tester)
 
 def runtests(world_in):
+	print("Test module is ",_get_test_module())
+
 	tester = Tester()
 
 	# TODO Removed test functions aren't unloaded by importlib.reload
@@ -81,6 +89,7 @@ def runtests(world_in):
 	_single_test(world_in,tester,'mesh')
 	_single_test(world_in,tester,'armature')
 	_single_test(world_in,tester,'transformable')
+	_single_test(world_in,tester,'action')
 
 	# Clean up
 	world_in.remove_everything()

@@ -2,6 +2,10 @@ class Vector:
     def __init__(self,values):
         if(type(values)==tuple):
             self.values = values
+        elif(type(values)==int):
+            self.values = tuple([values])
+        elif(type(values)==float):
+            self.values = tuple([values])
         elif(type(values)==list):
             self.values = tuple(values)
         elif(values.__class__.__name__=='Euler'):
@@ -31,7 +35,9 @@ class Vector:
         return not self.__eq__(other)
 
     def __eq__(self,other):
-        return self.values == Vector(other).values
+        for (v1,v2) in zip(self.values,Vector(other).values):
+            if(v1-v2>0.001): return False
+        return True
 
     def __getattr__(self,name):
         if name == 'x': 

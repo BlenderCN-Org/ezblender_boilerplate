@@ -1,9 +1,12 @@
 import importlib
 
+from . import transformable
+try: importlib.reload(transformable)
+except Exception as e: print("Exception Reloading",e) # Try/catch to work with Sphinx documentation
+
 from . import vector
 try: importlib.reload(vector)
 except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
-
 
 Vector = vector.Vector
 
@@ -50,3 +53,11 @@ class Bone:
         """
         self.armature.__begin_edit_mode__()
         return Vector(self.blender_bone.tail)
+
+    def insert_rotation_frame(self,action,time,value,mode='XYZ'):
+        """Inserts a new "pose" frame for this bone
+        """
+        self.armature.__begin_pose_mode__()
+        pbone = self.armature.pose.bones[self.blender_bone.name]
+        pbone.rotation_mode = mode
+        blender_action = self.armature.world.__get_action__(action)

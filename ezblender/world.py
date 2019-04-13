@@ -3,6 +3,7 @@ import time
 import importlib
 from . import mesh
 from . import armature
+from . import action
 
 try: importlib.reload(mesh) 
 except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
@@ -10,6 +11,8 @@ except Exception as e: print("Exception Reloading:",e) # Try/catch to work with 
 try: importlib.reload(armature)
 except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
 
+try: importlib.reload(action)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
 
 class World:
 	"""
@@ -24,6 +27,19 @@ class World:
 
 		self.current_edit_object = None
 		self.kept_objects = {}
+
+	def get_action(self,name):
+		if name in bpy.data.actions:
+			return action.Action(self,bpy.data.actions[name])
+		return action.Action(self,bpy.data.actions.new(name))
+
+	def remove_action(self,name):
+		bpy.data.actions.remove(bpy.data.actions[name])
+
+	def create_action(self,name):
+		if name in bpy.data.actions:
+			self.remove_action(name)
+		return action.Action(self,bpy.data.actions.new(name))
 
 	def __set_edit_object__(self,obj):
 		self.current_edit_object = obj
@@ -74,6 +90,7 @@ class World:
 			bpy.data.meshes,
 			bpy.data.lamps,
 			bpy.data.cameras,
+			bpy.data.actions,
 			):
 			for id_data in bpy_data_iter:
 				bpy_data_iter.remove(id_data)
@@ -109,7 +126,6 @@ class World:
 		return name in bpy.data.objects
 
 	def create_armature(self,name):
-		self.__set_object_mode__()
 		"""Creates a new Armature in the Blender scene.
 
 		Warning:
@@ -118,12 +134,12 @@ class World:
 		Args:
 			name (string): Name of the new object	
 		"""
+		self.__set_object_mode__()
 		obj = armature.Armature(self,self.__createobject__(name,bpy.data.armatures.new('Armature')))
 		self.kept_objects[name] = obj
 		return obj
 
 	def create_mesh(self,name):
-		self.__set_object_mode__()
 		"""Creates a new mesh in the Blender scene.
 
 		Warning: 
@@ -132,6 +148,7 @@ class World:
 		Args:
 			name (string): Name of the new object
 		"""
+		self.__set_object_mode__()
 		obj = mesh.Mesh(self,self.__createobject__(name,bpy.data.meshes.new('mesh')))
 		self.kept_objects[name] = obj
 		return obj 

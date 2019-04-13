@@ -22,6 +22,7 @@ class Armature(scene_object.SceneObject):
     def __init__(self,world,blender_object):
         self.world = world
         self.blender_object = blender_object
+        self.cur_mode = None
 
     def __begin_edit_mode__(self):
         if(self.world.current_edit_object==self):
@@ -29,9 +30,20 @@ class Armature(scene_object.SceneObject):
         self.world.current_edit_object = self
         bpy.context.scene.objects.active = self.blender_object
         bpy.ops.object.mode_set(mode='EDIT')
+        self.cur_mode = 'EDIT'
 
     def __finish_edit_mode__(self):
         bpy.ops.object.mode_set(mode='OBJECT')
+        self.cur_mode = None
+
+    def __begin_pose_mode__(self):
+        if(self.world.current_edit_object==self):
+            if self.cur_mode == 'EDIT':
+                bpy.ops.object.mode_set(mode='POSE')
+        else:
+            self.world.current_edit_object = self
+            bpy.context.scene.objects.active = self.blender_object
+            bpy.ops.object.mode_set(mode='POSE')
 
     def create_bone(self,name,head,tail):
         """Adds a new bone to this armature
