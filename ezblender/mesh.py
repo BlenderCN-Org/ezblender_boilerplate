@@ -13,7 +13,6 @@ except Exception as e: print("Exception Reloading:",e) # Try/catch to work with 
 Vector = vector.Vector
 
 class Mesh(scene_object.SceneObject):
-
     """
     Represents a single mesh object in the Blender Scene
     """

@@ -56,6 +56,13 @@ class Bone:
 
     def insert_rotation_frame(self,action,time,value,mode='XYZ',interpolation='LINEAR'):
         """Inserts a new "pose" frame for this bone
+
+        Args:
+            action (string): Name of the 'action' (as seen in the 'Action editor') to assign to
+            time (float): Time value for the inserted frame
+            value (Vector): Vector of 3 or 4 values, depending on the rotation type
+            mode (string): Rotation mode to use ('XYZ','QUATERNION','AXIS_ANGLE')
+            interpolation (string): Interpolation to use for this rotation TODO add examples
         """
         self.armature.__begin_edit_mode__()
         bonename = self.blender_bone.name
