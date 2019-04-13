@@ -36,6 +36,16 @@ class Bone:
         self.armature.__begin_edit_mode__()
         self.blender_bone.tail = Vector(tail).values
 
+    def set_parent(self,parent,attach_head=False):
+        """Sets the parent of this bone
+            Args:
+                parent (Bone) : The new parent for this bone
+                attach_head (boolean) : Whether to attach the head of this bone to the new parent
+        """
+        self.blender_bone.parent = parent.blender_bone
+        if(attach_head):
+            self.set_head(parent.get_tail())
+
     def get_head(self):
         """Returns the head location of this bone
 
