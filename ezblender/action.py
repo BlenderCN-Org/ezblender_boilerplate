@@ -14,7 +14,7 @@ class Action:
     def get_name(self):
         return self.blender_action.name
 
-    def set_curve_value(self,group,name,frame,value,interpolation='ELASTIC'):
+    def set_curve_value(self,group,name,frame,value,interpolation='LINEAR'):
         if type(value) is float or type(value) is int:
             value = Vector([value]).values
         else:

@@ -54,10 +54,23 @@ class Bone:
         self.armature.__begin_edit_mode__()
         return Vector(self.blender_bone.tail)
 
-    def insert_rotation_frame(self,action,time,value,mode='XYZ'):
+    def insert_rotation_frame(self,action,time,value,mode='XYZ',interpolation='LINEAR'):
         """Inserts a new "pose" frame for this bone
         """
+        self.armature.__begin_edit_mode__()
+        bonename = self.blender_bone.name
         self.armature.__begin_pose_mode__()
-        pbone = self.armature.pose.bones[self.blender_bone.name]
+        pbone = self.armature.blender_object.pose.bones[bonename]
         pbone.rotation_mode = mode
-        blender_action = self.armature.world.__get_action__(action)
+        action = self.armature.world.get_action(action)
+        name = self.blender_bone.name
+
+        rotation_name = None
+        if mode== 'XYZ':
+            rotation_name = 'euler'
+        elif mode == 'QUATERNION':
+            rotation_name = 'quaternion'
+        else:
+            raise Exception('Unknown rotation mode: '+mode)
+
+        action.set_curve_value(name,"pose.bones[\""+name+"\"].rotation_"+rotation_name,time,value)
