@@ -21,6 +21,9 @@ Welcome to ezblender's documentation!
 .. automodule:: ezblender.bone
 	:members:
 
+.. automodule:: ezblender.action
+	:members:
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
