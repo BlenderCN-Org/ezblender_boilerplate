@@ -88,6 +88,7 @@ def runtests(world_in):
 	_single_test(world_in,tester,'armature')
 	_single_test(world_in,tester,'transformable')
 	_single_test(world_in,tester,'action')
+	_single_test(world_in,tester,'binary_file')
 
 	# Clean up
 	world_in.remove_everything()

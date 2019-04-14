@@ -4,6 +4,7 @@ import importlib
 from . import mesh
 from . import armature
 from . import action
+from . import binary_file
 
 try: importlib.reload(mesh) 
 except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
@@ -12,6 +13,9 @@ try: importlib.reload(armature)
 except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
 
 try: importlib.reload(action)
+except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
+
+try: importlib.reload(binary_file)
 except Exception as e: print("Exception Reloading:",e) # Try/catch to work with Sphinx documentation
 
 class World:
@@ -57,6 +61,12 @@ class World:
 		scene.objects.link(obj)
 		obj.name = name
 		return obj
+
+	def read_binary_file(self,path,endian='SMALL'):
+		return binary_file.BinaryFileReader(path,endian)
+
+	def write_binary_file(self,path,endian='SMALL'):
+		return binary_file.BinaryFileWriter(path,endian)
 
 	def remove(self,name):
 		self.__set_object_mode__()
