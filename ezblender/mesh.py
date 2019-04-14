@@ -19,6 +19,9 @@ class Mesh(scene_object.SceneObject):
     def __init__(self,world,blender_object):
         self.world = world
         self.blender_object = blender_object
+        self.__dirty_faces = False
+        self.__dirty_verts = False
+        self.__dirty_edges = False
 
     def __begin_edit_mode__(self):
         if(self.world.current_edit_object==self):
@@ -60,6 +63,7 @@ class Mesh(scene_object.SceneObject):
             self.get_vertex(vertex) if isinstance(vertex,int) else vertex for vertex in vertices
         ]
         self.bmesh.faces.new(vertices)
+        self.__dirty_faces = True
 
     def set_vertex_groups(self,vertices,groups):
         """Adds new vertex groups to vertices
@@ -125,21 +129,68 @@ class Mesh(scene_object.SceneObject):
             self.bmesh.edges.new([vertices[i-1],e])
         self.__dirty_edges = True
 
+    def add_uv_layer(self):
+        """Adds a new UV layer to this mesh"""
+        self.__begin_edit_mode__()
+        return self.bmesh.loops.layers.uv.new().name
+
+    def set_uv_coordinate(self,uv_layer,face_id,vertex_id,uv):
+        """Sets vertex uv coordinates 
+
+            Args:
+                uv_layer (int) : Index to the UV layer to use
+                face_id (int) : Index to the face being mapped
+                vertex_id (int) : Index to the vertex being mapped
+                uv (Vector) : Two-dimensional vector describing uv coordinates
+        """
+        uv = Vector(uv)
+        face = self.get_face(face_id)
+        vertex = self.get_vertex(vertex_id)
+        uv_layer = self.bmesh.loops.layers.uv.get(uv_layer)
+        for loop in face.loops:
+            if loop.vert != vertex:
+                continue
+            loop[uv_layer].uv = (uv.values[0],uv.values[1])
+            break
+
+    def get_uv_coordinate(self,uv_layer,face_id,vertex_id):
+        """Returns uv coordinates of a vertex
+
+            Args:
+                uv_layer (int) : Index to the UV layer to lookup
+                face_id (int) : Index to the face to lookup
+                vertex_id (int) : Index to the vertex to lookup
+        """
+        face = self.get_face(face_id)
+        vertex = self.get_vertex(vertex_id)
+        uv_layer = self.bmesh.loops.layers.uv.get(uv_layer)
+
+        for loop in face.loops:
+            if loop.vert != vertex:
+                continue
+            return Vector(loop[uv_layer].uv)
+        return None
+
+
     # TODO: Should these be public?
     def get_edge(self,index):
         self.__begin_edit_mode__()
         if(self.__dirty_edges):
             self.bmesh.edges.ensure_lookup_table()
+            self.__dirty_edges = False
         return self.bmesh.edges[index]
 
     def get_vertex(self,index):
         self.__begin_edit_mode__()
         if(self.__dirty_verts):
             self.bmesh.verts.ensure_lookup_table()
+            self.__dirty_verts = False
         return self.bmesh.verts[index]
     
     def get_face(self,face,safe=False):
         self.__begin_edit_mode__()
         if(self.__dirty_faces):
-            self.bmes.faces.ensure_lookup_table()
+            self.bmesh.faces.ensure_lookup_table()
+            self.__dirty_faces = False
+        return self.bmesh.faces[face] 
         # TODO Why is this method not even finished?

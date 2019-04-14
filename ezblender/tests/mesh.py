@@ -33,3 +33,13 @@ def test_add_vertex_groups(world,tester):
     m0.set_vertex_groups(0,[("group1",0.5),("group2",0.25)])
     groups = m0.get_groups_for_vertex(0)
     tester.equal(groups,[(0,0.5),(1,0.25)],"Groups can be found per vertex")
+
+def test_add_uv_layers(world,tester):
+    m0 = world.create_mesh("mesh")
+    m0.add_vertex((0,0,0))
+    m0.add_vertex((10,0,0))
+    m0.add_vertex((0,10,0))
+    m0.add_face([0,1,2])
+    layer = m0.add_uv_layer()
+    m0.set_uv_coordinate(layer,0,0,(10,20))
+    tester.equal(m0.get_uv_coordinate(layer,0,0),(10,20))

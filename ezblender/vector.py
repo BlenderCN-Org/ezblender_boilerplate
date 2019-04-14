@@ -17,7 +17,10 @@ class Vector:
             if values.__class__==Vector:
                 self.values = values.values
             else:
-                self.values = (values.x,values.y,values.z)
+                if len(values)==2:
+                    self.values = (values.x,values.y)
+                else:
+                    self.values = (values.x,values.y,values.z)
         elif(values.__class__.__name__=='Quaternion'):
             self.values = (values.w,values.x,values.y,values.z)
         else:
