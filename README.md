@@ -1,6 +1,8 @@
-# ezblender-boilerplate
+# EZBlender Boilerplate
 
-**ezblender is still under heavy development, breaking changes are common**
+**EZBlender is still under heavy development, breaking changes are common**
+
+[Read the full documentation here](https://anonoh.github.io/ezblender_docs/)
 
 ezblender is a simple wrapper module to make developing Blender addons simpler. It provides a separate and greatly simplified interface to some of the most common Blender operations, such as creating objects, modifying meshes, and inserting animation keyframes.
 
@@ -38,3 +40,5 @@ def init(registry):
 ```
 
 If we reload the addon in blender (Bound to the F8 key by default), we can open the operator menu (Space) and search for "My Operator". Running it should print "Hello World" to the System Console (Window->Toggle System Console)
+
+[Read the full documentation here](https://anonoh.github.io/ezblender_docs/)
