@@ -17,6 +17,7 @@ class Bone:
     def __init__(self,armature,blender_bone):
         self.armature = armature
         self.blender_bone = blender_bone
+        self.name = self.blender_bone.name
 
     def set_head(self,head):
         """Sets the Head location of this bone
@@ -75,12 +76,10 @@ class Bone:
             interpolation (string): Interpolation to use for this rotation TODO add examples
         """
         self.armature.__begin_edit_mode__()
-        bonename = self.blender_bone.name
         self.armature.__begin_pose_mode__()
-        pbone = self.armature.blender_object.pose.bones[bonename]
+        pbone = self.armature.blender_object.pose.bones[self.name]
         pbone.rotation_mode = mode
         action = self.armature.world.get_action(action)
-        name = self.blender_bone.name
 
         rotation_name = None
         if mode== 'XYZ':
@@ -90,4 +89,4 @@ class Bone:
         else:
             raise Exception('Unknown rotation mode: '+mode)
 
-        action.set_curve_value(name,"pose.bones[\""+name+"\"].rotation_"+rotation_name,time,value)
+        action.set_curve_value(self.name,"pose.bones[\""+self.name+"\"].rotation_"+rotation_name,time,value)
