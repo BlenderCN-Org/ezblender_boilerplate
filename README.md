@@ -19,4 +19,22 @@ ezblender is a simple wrapper module to make developing Blender addons simpler. 
 
 ## Writing your addon
 
-TODO
+**Under construction**
+
+Navigate to your `ezblender_boilerplate` folder and open the file `addon.py`, this is the entry point for your addon. 
+
+It should currently look like this: 
+
+```
+def init(registry):
+  pass
+```
+
+To make the addon *do* something, we can use this function to registers some operators
+
+```
+def init(registry):
+  registry.register_operator("ezblender.my_operator","My Operator",lambda world: print("Hello world"))
+```
+
+If we reload the addon in blender (Bound to the F8 key by default), we can open the operator menu (Space) and search for "My Operator". Running it should print "Hello World" to the System Console (Window->Toggle System Console)
