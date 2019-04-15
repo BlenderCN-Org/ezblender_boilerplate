@@ -26,10 +26,19 @@ def register():
 	cur_registry.register_operator(
 		"ezblender.runtests","Run EZBlender Tests",
 		tester.runtests)
+
 	for operator in cur_registry.registered_operators:
 		bpy.utils.register_class(operator)
+
+	for export_window in cur_registry.registered_export_windows:
+		bpy.types.INFO_MT_file_export.append(export_window)
+
+	for import_window in cur_registry.registered_import_windows:
+		bpy.types.INFO_MT_file_import.append(import_window)
 
 def unregister():
 	for operator in cur_registry.registered_operators:
 		bpy.utils.unregister_class(operator)
 	cur_registry.registered_operators.clear()
+	cur_registry.registered_export_windows.clear()
+	cur_registry.registered_import_windows.clear()
