@@ -21,8 +21,6 @@ ezblender is a simple wrapper module to make developing Blender addons simpler. 
 
 ## Writing your addon
 
-**Under construction**
-
 Navigate to your `ezblender_boilerplate` folder and open the file `addon.py`, this is the entry point for your addon. 
 
 It should currently look like this: 
