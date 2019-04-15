@@ -1,4 +1,5 @@
 class Vector:
+    """ Represents an n-dimensional vector. Methods that return a vector should return this type."""
     def __init__(self,values):
         if(type(values)==tuple):
             self.values = values

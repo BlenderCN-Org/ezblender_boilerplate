@@ -41,7 +41,8 @@ release = u''
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinx.ext.githubpages'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -177,4 +178,4 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
-autodoc_mock_imports = ['bpy','bmesh','importlib','mathutils']
+autodoc_mock_imports = ['bpy','bmesh','importlib','mathutils','bpy_extras']

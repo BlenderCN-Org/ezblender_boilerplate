@@ -1,35 +1,19 @@
 .. ezblender documentation master file, created by
-   sphinx-quickstart on Wed Apr 03 15:32:06 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ezblender's documentation!
+Index
 =====================================
 
-.. automodule:: ezblender.registry
-	:members:
-
-.. automodule:: ezblender.world
-	:members:
-
-.. automodule:: ezblender.mesh
-	:members:
-
-.. automodule:: ezblender.armature
-	:members:
-
-.. automodule:: ezblender.bone
-	:members:
-
-.. automodule:: ezblender.action
-	:members:
-
-.. automodule:: ezblender.binary_file
-	:members:
+Welcome to the EZBlender documentation. Here you can read all about the api and view a few usage examples to get you started
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 200
+
+   self
+   introduction
+   examples
+   api
 
 Indices and tables
 ==================

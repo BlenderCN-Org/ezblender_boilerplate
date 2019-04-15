@@ -75,7 +75,6 @@ class Bone:
             mode (string): Rotation mode to use ('XYZ','QUATERNION','AXIS_ANGLE')
             interpolation (string): Interpolation to use for this rotation TODO add examples
         """
-        self.armature.__begin_edit_mode__()
         self.armature.__begin_pose_mode__()
         pbone = self.armature.blender_object.pose.bones[self.name]
         pbone.rotation_mode = mode
