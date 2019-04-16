@@ -60,3 +60,7 @@ def transtest_set_parent(obj,world,tester):
     obj.set_parent(cube1)
     tester.not_equal(cube,obj.get_parent(),"Does not keep old parent after another call")
     tester.equal(cube1,obj.get_parent(),"Updates parent after multiple calls")
+
+def transtest_set_scale(obj,world,tester):
+    obj.set_local_scale((1,5,1))
+    tester.equal(obj.get_local_scale(),(1,5,1))

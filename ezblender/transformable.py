@@ -60,3 +60,9 @@ class Transformable:
         self.__set_parent__(parent)
     def get_parent(self):
         return self.__get_parent__()
+
+    def get_local_scale(self):
+        return self.__get_local_scale__()
+
+    def set_local_scale(self,scale):
+        self.__set_local_scale__(scale)

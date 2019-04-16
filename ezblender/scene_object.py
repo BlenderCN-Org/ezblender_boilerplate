@@ -53,8 +53,13 @@ class SceneObject(transformable.Transformable):
         elif mode == "AXIS_ANGLE":
             self.blender_object.rotation_axis_angle = Vector(rotation).values
 
-    # TODO How to not apply parents transform?
+    def __set_local_scale__(self,scale):
+        self.blender_object.scale = Vector(scale).values
 
+    def __get_local_scale__(self):
+        return Vector(self.blender_object.scale)
+
+    # TODO How to not apply parents transform?
     def __set_parent__(self,parent):
         self.blender_object.parent = parent.blender_object
 
