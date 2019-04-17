@@ -65,8 +65,21 @@ class Bone:
         self.armature.__begin_edit_mode__()
         return Vector(self.blender_bone.tail)
 
+    def insert_location_frame(self,action,time,value,interpolation='LINEAR'):
+        """Inserts a new location pose frame for this bone
+
+        Args:
+            action (string): Name of the 'action' (as seen in the 'Action editor') to assign to
+            time (float): Time value for the inserted frame
+            value (Vector): Vector of 3 or 4 values, depending on the rotation type
+            mode (string): Rotation mode to use ('XYZ','QUATERNION','AXIS_ANGLE')
+            interpolation (string): Interpolation to use for this rotation TODO add examples
+        """
+        action = self.armature.world.get_action(action)
+        action.set_curve_value(self.name,"pose.bones[\""+self.name+"\"].location",time,value)
+
     def insert_rotation_frame(self,action,time,value,mode='XYZ',interpolation='LINEAR'):
-        """Inserts a new "pose" frame for this bone
+        """Inserts a new rotation pose frame for this bone
 
         Args:
             action (string): Name of the 'action' (as seen in the 'Action editor') to assign to
